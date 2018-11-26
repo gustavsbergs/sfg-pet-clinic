@@ -31,6 +31,11 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        int count = petTypeService.findAll().size();
+        if(count == 0) {loadData();}
+    }
+
+    private void loadData() {
         PetType dog = new PetType();
         dog.setName("dog");
         PetType savedDogPetType = petTypeService.save(dog);
@@ -38,12 +43,18 @@ public class DataLoader implements CommandLineRunner {
         PetType cat = new PetType();
         cat.setName("cat");
         PetType savedCatPetType = petTypeService.save(cat);
+
         Specialty radiology = new Specialty();
         radiology.setDescription("Radiology");
+        Specialty savedRadiology = specialtyService.save(radiology);
+
         Specialty dentistry = new Specialty();
         dentistry.setDescription("Dentistry");
+        Specialty savedDentistry = specialtyService.save(dentistry);
+
         Specialty surgery = new Specialty();
         surgery.setDescription("Surgery");
+        Specialty savedSurgery = specialtyService.save(surgery);
 
         Owner owner1 = new Owner();
 
@@ -85,6 +96,7 @@ public class DataLoader implements CommandLineRunner {
 
         vet1.setFirstName("Graham");
         vet1.setLastName("Atlanta");
+        vet1.getSpecialties().add(savedRadiology);
 
         vetService.save(vet1);
 
@@ -92,6 +104,7 @@ public class DataLoader implements CommandLineRunner {
 
         vet2.setFirstName("Sarah");
         vet2.setLastName("Michigan");
+        vet2.getSpecialties().add(savedSurgery);
 
         vetService.save(vet2);
         System.out.println("Loaded Vets...");
