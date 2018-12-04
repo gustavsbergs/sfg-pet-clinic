@@ -93,7 +93,7 @@ public class DataLoader implements CommandLineRunner {
 
         ownerService.save(owner2);
 
-        //Adding visit
+        //Adding visit for a cat
         Visit catVisit = new Visit();
 
         catVisit.setPet(bobsCat);
